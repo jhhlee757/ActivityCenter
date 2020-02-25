@@ -1,0 +1,40 @@
+@model Activity0
+
+<h1 class="float-left">@ViewBag.ThisActivity.Title</h1>
+<a href="/Logout" class="btn btn-danger float-right">Log Out</a>
+<a href="/home" class="btn btn-warning float-right">Home</a>
+@{
+                    
+    bool IsAttending = false;
+    foreach(var y in ViewBag.getsameactivity.ActivityParticipant)
+    {
+        if(y.UserId == ViewBag.LoggedInUser.UserId)
+        {
+            IsAttending = true;
+        }
+    }
+    if(IsAttending == true)
+    {
+        <a class="float-right btn btn-success" href="/Unjoin/@Model.ActivityId">Unjoin</a>
+
+    }
+
+    else
+    {
+        <a class="float-right btn btn-success" href="/Join/@Model.ActivityId">Join</a>
+
+    }
+}
+<br/><br/><br/>
+<h3>Event Coordinator: @ViewBag.ThisActivity.Coordinator.Name</h3>
+<br/>
+<h3>Description: @ViewBag.ThisActivity.Description</h3>
+<br/>
+<h3>Participants:</h3>
+@{
+    foreach(var p in ViewBag.getsameactivity.ActivityParticipant)
+    {
+        <p>@p.JoiningUser.Name</p>
+    }
+}
+

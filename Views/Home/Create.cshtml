@@ -1,0 +1,38 @@
+@model Activity0
+
+
+<h1 class="float-left">Create an Activity</h1>
+<a href="Logout" class="btn btn-danger float-right">Log Out</a>
+<a href="home" class="btn btn-warning float-right">Home</a>
+
+<br/><br/><br/>
+<div class="float-left">
+    <form action="New" method="post">
+        <div class="form-group">
+            <label>Title</label>
+            <input asp-for="Title" class="form-control">
+            <span asp-validation-for="Title" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Date</label>
+            <input asp-for="Date" class="form-control">
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Time</label>
+            <input asp-for="Time" class="form-control">
+            <span asp-validation-for="Date" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Duration</label>
+            <input asp-for="Duration" class="form-control">
+            <span asp-validation-for="Duration" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            <textarea asp-for="Description" cols="30" rows="5"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>

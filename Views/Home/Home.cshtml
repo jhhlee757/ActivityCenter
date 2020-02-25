@@ -1,0 +1,71 @@
+@model User
+
+<div>
+    <h1 class="float-left">Dojo Activity Center</h1>
+    <a href="Logout" class="btn btn-danger float-right">Log Out</a>
+    <p class="float-right">Welcome, @ViewBag.LoggedUser!</p>
+</div>
+<br/><br/><br/>
+<div>
+    <table class="table table-bordered table-striped">
+        <tr>
+            <th>Activity</th>
+            <th>Date and Time</th>
+            <th>Duration</th>
+            <th>Event Coordinator</th>
+            <th>No. of Participants</th>
+            <th>Actions</th>
+        </tr>
+        @{
+            foreach(var a in ViewBag.getsameactivity)
+            {
+                if(a.Date < DateTime.Now.Date && a.Time < DateTime.Now)
+                {
+                    break;
+                }
+                else{
+                <tr>
+                    <td><a href="activity/@a.ActivityId">@a.Title</a></td>
+                    <td>@a.Date.ToShortDateString() at @a.Time.ToShortTimeString()</td>
+                    <td>@a.Duration Hrs</td>
+                    <td>@a.Coordinator.Name</td>
+                    <td>@a.ActivityParticipant.Count</td>         
+                    <td>
+                    @{
+                    if(ViewBag.LoggedUser == @a.Coordinator.Name)
+                    {
+                        <a href="Delete/@a.ActivityId">Delete</a>
+                    }
+                    else
+                    {
+                        bool IsAttending = false;
+                        foreach(var y in a.ActivityParticipant)
+                        {
+                            if(y.UserId == ViewBag.LoggedInUser.UserId)
+                            {
+                                IsAttending = true;
+                            }
+                        }
+                        if(IsAttending == true)
+                        {
+                            <a href="Unjoin/@a.ActivityId">Unjoin</a>
+
+                        }
+                    
+                        else
+                        {
+                            <a href="Join/@a.ActivityId">Join</a>
+
+                        }
+                    }
+                    }
+                    </td>
+                </tr>
+                }
+            }
+        }      
+    </table>
+</div>
+<div>
+    <a href="Create" class="btn btn-warning float-right">Add New Activity</a>
+</div>
